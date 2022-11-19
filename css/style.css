@@ -70,6 +70,11 @@ ul {
   display: flex;
 }
 
+.line-anim {
+  color: #212121;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 .link-navi {
   display: flex;
 
@@ -80,11 +85,9 @@ ul {
   line-height: 1.14;
   letter-spacing: 0.02em;
 }
-.link-navi a {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+.blue-line {
+  padding-top: 32px;
+  padding-bottom: 32px;
 
   font-family: inherit;
   text-decoration: none;
@@ -94,9 +97,27 @@ ul {
   margin-right: 50px;
 }
 
-.link-navi .link.current {
+.blue-line.current {
   color: var(--color-blue);
 }
+
+.blue-line.current::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: #2196f3;
+  border-radius: 2px;
+  margin-top: 28px;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blue-line.current:hover:after,
+.blue-line.current:focus:after {
+  transform: scaleX(1);
+}
+
 /* контакти шапки */
 .icon-contact {
   display: inline-block;
@@ -303,6 +324,62 @@ ul {
   border-radius: 4px;
   border-color: transparent;
 }
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: visible;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 528px;
+  min-height: 581px;
+  padding: 15px;
+  background-color: #ffffff;
+
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  padding: 0;
+
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: rgba(0, 0, 0, 1);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 /* секція факти */
 .visually-hidden {
   position: absolute;
@@ -368,6 +445,28 @@ ul {
   color: var(--general-gray-text);
 }
 /* чим ми займаємось */
+.overlay-work {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(47, 48, 58, 0.8);
+  opacity: 1;
+  width: 370px;
+  height: 70px;
+  align-items: center;
+}
+.post-text {
+  flex-grow: 1;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
 .work {
   background-color: var(--color-white);
   padding-bottom: 94px;
@@ -594,6 +693,40 @@ ul {
   padding-bottom: 20px;
   padding-left: 24px;
   padding-right: 24px;
+}
+
+.item-thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.item-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(33, 150, 243, 0.9);
+  opacity: 0;
+
+  transform: translateY(100%);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.item-card:hover .item-overlay,
+.item-card:focus .item-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.item-overlay-text {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.56;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  margin: 63px 24px;
 }
 .product-link li:hover,
 .product-link li:focus {
